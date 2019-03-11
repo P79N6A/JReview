@@ -12,10 +12,17 @@ HELP.md
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
+.mvn
+mvnw.*
+java.iml
+mvnw
+mvnw.cmd
+.gitingnore
+.mvn/
 
 ### NetBeans ###
 /nbproject/private/
