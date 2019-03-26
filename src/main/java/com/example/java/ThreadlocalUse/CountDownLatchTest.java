@@ -1,4 +1,4 @@
-package com.example.java.JUC;
+package com.example.java.ThreadlocalUse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
