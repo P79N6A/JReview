@@ -35,7 +35,7 @@ public class BlockingQueueDemo {
         t2.start();
         Thread t3 = new Thread(c1);
         t3.start();
-        Thread.sleep(1000 * 1000);
+        Thread.sleep(10 * 1000);
         p1.stopThread();
         c1.stopThread();
     }
