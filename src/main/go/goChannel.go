@@ -22,6 +22,10 @@ func printer(in <-chan int) {
 		fmt.Println(v)
 	}
 }
+
+/**
+使用管道，协成操作
+ */
 func main() {
 	now := time.Now()
 	//定义两个int类型的channel

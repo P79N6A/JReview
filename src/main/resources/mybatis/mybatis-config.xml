@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--  XML 配置文件包含对 MyBatis 系统的核心设置 -->
+<configuration>
+    <properties resource="db.yml"/>
+    <!-- 指定 MyBatis 所用日志的具体实现 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!-- 要使延迟加载生效必须配置下面两个属性 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--
+            2.settings:包含很多的重要设置
+                setting:用来设置每一个设置项
+                    name:设置项名
+                    value:设置项值
+                    例如：mapUnderscoreToCamelCase 默认为false 这个的作用是驼峰命名转换，l_name -> lName
+        -->
+        <!--开启驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--开启二级缓存-->
+        <setting name="cacheEnabled" value="true"></setting>
+    </settings>
+
+    <!--
+        3.typeAliases:起别名的标签
+            typeAlias:为某个java类型起别名
+                type:指定要起别名的全类名，默认别名就是类小写，(但是其实他是不区分大小写的，也就是说你全部大写也没问题)
+                alias:新的别名
+            package:为某个包下的类批量起别名(这个会存在的一个问题就是可能会重复，重复的情况下还可以用@Alias来解决)
+                name:指定包名(这个就相当于是为这个包下的所有的类都创建了一个默认的别名)
+        当然还有一个起别名的方式就是在实体上使用@Alias来起别名
+        注：起别名看自己的情况，推荐还是在mapper文件中使用全类名
+    -->
+    <typeAliases>
+        <typeAlias type="com.wj.mybatis.bean.Employee" alias="emp"></typeAlias>
+        <package name="com.wj.mybatis.bean"></package>
+    </typeAliases>
+    <!--
+        4.environments：配置mybatis的多种环境，default指定使用某种环境。可以达到快速切换的目的
+            environment：配置一个具体的环境信息，他必须要配置transactionManager和dataSource这两个子标签，id代表当前环境的唯一标识
+                transactionManager：事务管理器 type是具体事物的别名 有两个值：JDBC(JdbcTransactionFactory)|MANAGED(ManagedTransactionFactory)
+                当然我们还可以自定义事物：需要我们实现TransactionFactory接口 type指定为全类名
+                dataSource：数据源 type：数据源类型 有三个值：UNPOOLED(UnpooledDataSourceFactory)
+                                                           |POOLED(PooledDataSourceFactory)
+                                                           |JNDI(JndiDataSourceFactory)
+                当然我们还可以自定义数据源 使用之前接触过的c3p0，dbcp什么的，这需要我们实现DataSourceFactory type指向全类名
+                但是这部分的内容一般来说并不会使用mybatis的配置，一般都是在spring中配置
+    -->
+    <environments default="mysql">
+        <!-- 环境配置，即连接的数据库。 -->
+        <environment id="mysql">
+            <!--  指定事务管理类型，type="JDBC"指直接简单使用了JDBC的提交和回滚设置 -->
+            <transactionManager type="JDBC"/>
+            <!--  dataSource指数据源配置，POOLED是JDBC连接对象的数据源连接池的实现。 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--
+        5.databaseIdProvider:用来支持多数据库厂商
+            type="DB_VENDOR":VendorDatabaseIdProvider
+            作用就是得到数据库厂商的标识 getDatabaseProductName()
+            name是数据库厂商的标识，value使我们给他取的值
+    -->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"></property>
+        <property name="Oracle" value="oracle"></property>
+    </databaseIdProvider>
+
+    <!-- mappers告诉了MyBatis去哪里找持久化类的映射文件 -->
+    <mappers>
+        <mapper class="org.fkit.mapper.EmployeeMapper"/>
+    </mappers>
+</configuration>
