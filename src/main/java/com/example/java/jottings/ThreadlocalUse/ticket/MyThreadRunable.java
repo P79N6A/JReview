@@ -2,6 +2,7 @@ package com.example.java.jottings.ThreadlocalUse.ticket;
 
 import org.springframework.util.StopWatch;
 
+import java.awt.print.Book;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -15,7 +16,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class MyThreadRunable implements Runnable {
 
-    private static int ticket = 500000;
+    private volatile static boolean flag = true;
+    private static int ticket = 50;
     private static int count = 0;
     private static Lock lock = new ReentrantLock();
 
@@ -23,24 +25,27 @@ public class MyThreadRunable implements Runnable {
         StopWatch watch = new StopWatch();
         watch.start();
         MyThreadRunable runable = new MyThreadRunable();
-        new Thread(runable,"窗口A").start();
-        new Thread(runable,"窗口B").start();
-        new Thread(runable,"窗口C").start();
-        new Thread(runable,"窗口D").start();
-        new Thread(runable,"窗口E").start();
+        Thread t1 = new Thread(runable, "窗口A");
+        Thread t2 = new Thread(runable, "窗口B");
+        Thread t3 = new Thread(runable, "窗口C");
+        t1.start();
+        t2.start();
+        t3.start();
         watch.stop();
-        System.out.println(watch.getTotalTimeMillis()+"============");
+        System.out.println(watch.getTotalTimeMillis());
     }
 
     @Override
     public void run() {
 
-        while (true) {
+        while (flag) {
             lock.lock();
             if (ticket > 0) {
                 ticket--;
                 ++count;
                 System.out.println(Thread.currentThread().getName() + "卖出了" + count + "张票，剩余" + ticket + "张票");
+            } else {
+                flag = false;
             }
             lock.unlock();
         }
