@@ -1,5 +1,6 @@
 package com.example.java;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,13 +11,5 @@ public class JavaApplication {
         SpringApplication.run(JavaApplication.class, args);
 
     }
-
-
-
-    public void getBeanMethod(){
-
-
-    }
-
 
 }
