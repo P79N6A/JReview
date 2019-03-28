@@ -11,4 +11,9 @@ public class RealSubject implements Subject {
     public void hello() {
         System.out.println("static ----- hello ");
     }
+
+    @Override
+    public void hhhh() {
+
+    }
 }

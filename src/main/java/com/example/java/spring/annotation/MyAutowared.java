@@ -1,4 +1,4 @@
-package com.example.java.spring.DI.annotation;
+package com.example.java.spring.annotation;
 
 import com.sun.org.glassfish.gmbal.Description;
 

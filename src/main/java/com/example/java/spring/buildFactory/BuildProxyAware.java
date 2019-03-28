@@ -1,6 +1,4 @@
-package com.example.java.spring.DI.buildFactory;
-
-import org.springframework.stereotype.Component;
+package com.example.java.spring.buildFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

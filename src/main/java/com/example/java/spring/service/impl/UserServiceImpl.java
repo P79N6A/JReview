@@ -1,6 +1,6 @@
-package com.example.java.spring.DI.service.impl;
+package com.example.java.spring.service.impl;
 
-import com.example.java.spring.DI.service.UserService;
+import com.example.java.spring.service.UserService;
 
 import java.util.UUID;
 

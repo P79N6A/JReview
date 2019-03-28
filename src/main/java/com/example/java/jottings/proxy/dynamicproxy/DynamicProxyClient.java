@@ -9,5 +9,6 @@ public class DynamicProxyClient {
         Subject client = new DynamicProxy(new RealSubject()).getProxy();
         client.reqeust();
         client.hello();
+        client.hhhh();
     }
 }

@@ -9,4 +9,5 @@ public interface Subject {
     public void reqeust();
 
     public void hello();
+    void  hhhh();
 }

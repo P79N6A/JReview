@@ -1,8 +1,8 @@
-package com.example.java.spring.DI.buildFactory;
+package com.example.java.spring.buildFactory;
 
-import com.example.java.spring.DI.service.ASCService;
-import com.example.java.spring.DI.service.BookService;
-import com.example.java.spring.DI.service.UserService;
+import com.example.java.spring.service.ASCService;
+import com.example.java.spring.service.BookService;
+import com.example.java.spring.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component

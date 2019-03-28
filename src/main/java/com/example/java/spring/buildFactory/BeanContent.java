@@ -1,11 +1,13 @@
-package com.example.java.spring.DI.buildFactory;
+package com.example.java.spring.buildFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public interface BeanContent {
     ConcurrentHashMap<String, Object> mapContent = new ConcurrentHashMap<>();
+    ArrayList listFile = Lists.newArrayList();
 
     default Object getInstance(String obj) {
         Object o = null;
