@@ -6,7 +6,7 @@ public class SubjectClient {
     public static void main(String[] args) {
         SubjectProxy subjectProxy = new SubjectProxy();
 
-        
+
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(RealSubject.class);
         enhancer.setCallback(subjectProxy);
