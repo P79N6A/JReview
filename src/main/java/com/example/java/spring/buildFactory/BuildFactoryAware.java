@@ -12,11 +12,6 @@ import java.util.Map;
 
 public class BuildFactoryAware implements Aware {
 
-    @Override
-    public void logger() {
-        System.out.println("logger 加载成功");
-    }
-
     //構建工具替你创建后放到map容器中
     public void init() {
         StringBuilder bean = new StringBuilder();

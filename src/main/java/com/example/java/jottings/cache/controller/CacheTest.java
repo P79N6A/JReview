@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @描述
@@ -16,15 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @创建时间 $date$
  * @修改人和其它信息
  */
-@Controller
+@RestController
 public class CacheTest {
 
     private  static final Log log = LogFactory.getLog(CacheTest.class);
 
     @Autowired
     CacheServer cacheServer;
+
     @RequestMapping("/")
-    @ResponseBody
     public void text(){
         String login = cacheServer.textCache("张三", "1231");
         log.info(login);
