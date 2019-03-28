@@ -1,38 +1,34 @@
 package com.example.java.spring.DI.buildFactory;
 
 import com.google.common.base.Splitter;
-import com.google.common.base.Utf8;
 import com.google.common.io.Files;
-import net.sf.cglib.proxy.Enhancer;
-import org.apache.commons.lang.CharSetUtils;
-import org.aspectj.weaver.ast.Var;
-import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.util.Map;
 
-public class BuildConfig {
+public class BuildFactoryAware implements Aware {
 
     //構建工具替你创建后放到map容器中
-    public BuildConfig(Map<String, Object> mapContent) {
-//        读取bean配置
-        String bean = null;
+    public void init() {
+        StringBuilder bean = new StringBuilder();
         try {
-              Files.readLines(getFile("bean/bean.txt"), Charset.defaultCharset());
-//            bean = Files.toString(new File("classpath:bean/bean.txt"), Charset.defaultCharset()).trim();
+            Files.readLines(getFile("bean/bean.properties"), Charset.defaultCharset()).forEach(x -> {
+                if (x != null && !(x.startsWith("#"))) {
+                    bean.append(x).append(":");
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Map<String, String> result = Splitter.on("\r\n").withKeyValueSeparator("=").split(bean);
+        Map<String, String> result = Splitter.on(":").withKeyValueSeparator("=").split(bean.substring(0, bean.length() - 1));
         proxyBean(mapContent, result);
     }
 
     //    通过cglib进行反射实例化bean
-    public void proxyBean(Map<String, Object> mapContent, Map<String, String> mapObj) {
+    private void proxyBean(Map<String, Object> mapContent, Map<String, String> mapObj) {
         mapObj.forEach((k, v) -> {
             try {
                 Class<?> name = Class.forName(v);
@@ -53,10 +49,11 @@ public class BuildConfig {
         ClassLoader classLoader = getClass().getClassLoader();
         URL url = classLoader.getResource(fileName);
         File file = new File(url.getFile());
-        System.out.println(file.exists());
         if (file.exists()) {
             return file;
         }
         return null;
     }
 }
+
+
