@@ -1,4 +1,4 @@
-package com.example.java.spring.utils;
+package com.example.java.spring.Quartz;
 
 
 import org.quartz.CronScheduleBuilder;
